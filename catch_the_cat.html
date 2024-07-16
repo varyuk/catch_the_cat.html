@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catch the Cat Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .cat {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            cursor: pointer;
+        }
+        .message {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Catch the Cat!</h1>
+        <button class="button" onclick="startGame()">Start Game</button>
+        <div class="message" id="message"></div>
+        <img src="https://placekitten.com/100/100" alt="Cat" id="cat" class="cat" onclick="catchCat()" style="display: none;">
+    </div>
+
+    <script>
+        let score = 0;
+        let timer;
+        const cat = document.getElementById('cat');
+        const message = document.getElementById('message');
+
+        function startGame() {
+            score = 0;
+            message.textContent = 'Catch the cat!';
+            moveCat();
+            cat.style.display = 'block';
+            timer = setInterval(moveCat, 1000);
+            setTimeout(endGame, 30000); // Game duration: 30 seconds
+        }
+
+        function moveCat() {
+            const x = Math.random() * (window.innerWidth - 100);
+            const y = Math.random() * (window.innerHeight - 100);
+            cat.style.left = x + 'px';
+            cat.style.top = y + 'px';
+        }
+
+        function catchCat() {
+            score++;
+            message.textContent = `Score: ${score}`;
+        }
+
+        function endGame() {
+            clearInterval(timer);
+            cat.style.display = 'none';
+            message.textContent = `Game over! Your final score is: ${score}`;
+        }
+    </script>
+</body>
+</html>
